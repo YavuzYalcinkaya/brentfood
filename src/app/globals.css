@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ef4444 !important;
+}

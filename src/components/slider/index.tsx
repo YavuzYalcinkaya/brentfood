@@ -39,7 +39,7 @@ const Slider = () => {
         <h1 className="text-5xl text-center uppercase p-4 md:p-10 md:text-6xl xl:text-7xl">
           {data[currentSlide].title}
         </h1>
-        <button className="bg-gradient-to-r from-red-500 to-red-400  text-white py-4 px-8">
+        <button className="bg-red-500 hover:scale-105 text-white py-4 px-8">
           Order Now
         </button>
       </div>
