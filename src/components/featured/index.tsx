@@ -1,64 +1,51 @@
-"use client";
-import { featuredProducts } from "@/data";
+import { ProductType } from "@/types/types";
 import Image from "next/image";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
 
-const Featured = () => {
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/products", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed!");
+  }
+
+  return res.json();
+};
+
+const Featured = async () => {
+  const featuredProducts: ProductType[] = await getData();
+
   return (
-    <div>
+    <div className="w-screen overflow-x-scroll text-red-500">
       {/* WRAPPER */}
-      <div className="flex">
-        <Swiper
-          className="mySwiper"
-          navigation={true}
-          modules={[Navigation]}
-          spaceBetween={10}
-          slidesPerView={3}
-          loop={true}
-          breakpoints={{
-            300: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 30,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 30,
-            },
-          }}
-        >
-          {/* SINGLE ITEM */}
-          {featuredProducts.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="h-full flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300">
-                {/* IMAGE CONTAINER */}
-                {item.img && (
-                  <div className="relative flex-1  hover:rotate-[60deg] transition-all duration-500">
-                    <Image src={item.img} alt="" width={200} height={200} />
-                  </div>
-                )}
-                {/* TEXT CONTAINER */}
-                <div className=" flex-1 flex flex-col items-center justify-center text-center gap-4">
-                  <h1 className="text-xl text-red-500 font-bold uppercase xl:text-2xl 2xl:text-3xl">
-                    {item.title}
-                  </h1>
-                  <p className="p-4 2xl:p-8 text-neutral-600">{item.desc}</p>
-                  <span className="text-xl font-bold">${item.price}</span>
-                  <button className="bg-red-500 text-white p-3 rounded-md">
-                    Add to Cart
-                  </button>
-                </div>
+      <div className="w-max flex">
+        {/* SINGLE ITEM */}
+        {featuredProducts.map((item) => (
+          <div
+            key={item.id}
+            className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
+          >
+            {/* IMAGE CONTAINER */}
+            {item.img && (
+              <div className="relative flex-1 w-full hover:rotate-[60deg] transition-all duration-500">
+                <Image src={item.img} alt="" fill className="object-contain" />
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            )}
+            {/* TEXT CONTAINER */}
+            <div className=" flex-1 flex flex-col items-center justify-center text-center gap-4">
+              <h1 className="text-xl font-bold uppercase xl:text-2xl 2xl:text-3xl">
+                {item.title}
+              </h1>
+              <p className="p-4 2xl:p-8">{item.desc}</p>
+              <span className="text-xl font-bold">${item.price}</span>
+              <button className="bg-red-500 text-white p-2 rounded-md">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
