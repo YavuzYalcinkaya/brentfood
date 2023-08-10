@@ -1,10 +1,11 @@
-import { prisma } from "@/utils/connect";
 import { getAuthSession } from "@/utils/auth";
+import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
 // FETCH ALL ORDERS
 export const GET = async (req: NextRequest) => {
   const session = await getAuthSession();
+
   if (session) {
     try {
       if (session.user.isAdmin) {
@@ -31,6 +32,8 @@ export const GET = async (req: NextRequest) => {
     );
   }
 };
+
+// CREATE ORDER
 export const POST = async (req: NextRequest) => {
   return new NextResponse("Hello", { status: 200 });
 };

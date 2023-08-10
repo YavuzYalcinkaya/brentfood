@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import AuthProvider from "@/components/authprovider";
+import QueryProvider from "@/components/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,12 +23,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <div>
-            <Notification />
-            <Navbar />
-            {children}
-            <Footer />
-          </div>
+          <QueryProvider>
+            <div>
+              <Notification />
+              <Navbar />
+              {children}
+              <Footer />
+            </div>
+          </QueryProvider>
         </AuthProvider>
       </body>
     </html>
