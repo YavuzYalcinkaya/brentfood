@@ -53,7 +53,7 @@ const OrdersPage = () => {
   if (isLoading || status === "loading") return "Loading...";
 
   return (
-    <div className="p-4 lg:px-20 xl:px-40 min-h-screen">
+    <div className="p-4 lg:px-20 xl:px-40">
       <table className="w-full border-separate border-spacing-3">
         <thead>
           <tr className="text-left">
